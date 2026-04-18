@@ -46,7 +46,10 @@ export default function CalendarPage() {
 
   const handleAdd = async () => {
     if (!form.title.trim()) { toast.error("Title required"); return; }
-    await addEvent(form);
+    await addEvent({
+  ...form,
+  type: form.type as "event" | "task" | "reminder"
+});
     setForm({ title: "", date: format(new Date(), "yyyy-MM-dd"), type: "event", color: EVENT_COLORS[0], description: "" });
     setShowAdd(false);
   };
